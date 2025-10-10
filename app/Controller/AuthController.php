@@ -18,7 +18,7 @@ class AuthController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = $_POST["name"] ?? "";
             $firstname = $_POST["firstname"] ?? "";
-            $email = $_POST["email"] ?? "";
+            $email = trim($_POST["email"]) ?? "";
             $password = $_POST["password"] ?? "";
             $password_confirmation = $_POST["password_confirmation"] ?? "";
 
@@ -56,11 +56,41 @@ class AuthController
                     $_SESSION["user_id"] = $userId;
                     session_regenerate_id(true);
 
-                    header("Location: index.php?controller=task&action=index");
+                    header("Location: index.php?controller=auth&action=login");
                     exit;
                 }
             }
         }
         include __DIR__ . "/../View/auth/register.php";
+    }
+
+    public function login()
+    {
+        $errors = [];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = trim($_POST["email"]) ?? "";
+            $password = $_POST["password"] ?? "";
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Email invalide";
+            }
+
+            if (empty($errors)) {
+
+                $verifyEmail = $this->userDao->findByEmail($email);
+                if ($verifyEmail && password_verify($password, $verifyEmail["password"])) {
+
+                    $_SESSION["user_id"] = $verifyEmail["id"];
+                    session_regenerate_id(true);
+
+                    header("Location: index.php?controller=task&action=index");
+                    exit;
+                } else {
+                    $errors[] = "Email ou mot de passe incorrect";
+                }
+            }
+        }
+        include __DIR__ . "/../View/auth/login.php";
     }
 }

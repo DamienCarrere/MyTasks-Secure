@@ -19,6 +19,7 @@ switch ($controller) {
         $authController = new AuthController($userDao);
         switch ($action) {
             case "login":
+                $authController->login();
                 break;
             case "register":
                 $authController->register();
