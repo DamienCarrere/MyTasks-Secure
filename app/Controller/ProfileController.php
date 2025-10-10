@@ -21,6 +21,19 @@ class ProfileController
     public function index()
     {
         $this->isAuth();
+
+        $user = $this->userDao->findById($_SESSION["id"]);
+
+        if (!$user) {
+            echo "Utilisateur introuvable.";
+            exit;
+        }
+
+        $name = $user["name"];
+        $firstname = $user["firstname"];
+        $email = $user["email"];
+
+        include __DIR__ . "/../View/profile/profile.php";
     }
     public function update()
     {

@@ -51,10 +51,7 @@ class AuthController
                     $errors[] = "Email déjà utlisé";
                 } else {
                     $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $userId = $this->userDao->create($name, $firstname, $email, $hash);
-
-                    $_SESSION["id"] = $userId;
-                    session_regenerate_id(true);
+                    $this->userDao->create($name, $firstname, $email, $hash);
 
                     header("Location: index.php?controller=auth&action=login");
                     exit;
@@ -78,13 +75,13 @@ class AuthController
 
             if (empty($errors)) {
 
-                $verifyEmail = $this->userDao->findByEmail($email);
-                if ($verifyEmail && password_verify($password, $verifyEmail["password"])) {
+                $user = $this->userDao->findByEmail($email);
+                if ($user && password_verify($password, $user["password"])) {
 
-                    $_SESSION["id"] = $verifyEmail["id"];
+                    $_SESSION["id"] = $user["id"];
                     session_regenerate_id(true);
 
-                    header("Location: index.php?controller=task&action=index");
+                    header("Location: index.php?controller=profile&action=index");
                     exit;
                 } else {
                     $errors[] = "Email ou mot de passe incorrect";

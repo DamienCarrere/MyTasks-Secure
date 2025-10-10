@@ -1,7 +1,7 @@
 <?php
-
+session_start();
 require_once __DIR__ . "/app/Controller/AuthController.php";
-// require_once __DIR__ . "/app/Controller/ProfileController.php";
+require_once __DIR__ . "/app/Controller/ProfileController.php";
 // require_once __DIR__ . "/app/Controller/TaskController.php";
 require_once __DIR__ . "/app/DAO/UserDAO.php";
 require_once __DIR__ . "/app/DAO/TaskDAO.php";
@@ -30,9 +30,10 @@ switch ($controller) {
         }
         break;
     case "profile":
-        $userDao = new UserDAO($pdo);
+        $profileController = new ProfileController($userDao);
         switch ($action) {
             case "index":
+                $profileController->index();
                 break;
         }
         break;

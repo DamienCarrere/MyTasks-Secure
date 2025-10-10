@@ -32,11 +32,12 @@ class UserDAO
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function findById(User $user)
+    public function findById($id)
     {
         $query = "SELECT * FROM users WHERE id = :id LIMIT 1";
         $statement = $this->pdo->prepare($query);
-        $statement->execute([":id" => $user->getId()]);
+        $statement->execute([":id" => $id]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     public function updateProfile(User $user)
