@@ -10,25 +10,26 @@ class UserDAO
         $this->pdo = $pdo;
     }
 
-    public function create(User $user)
+    public function create($name, $firstname, $email, $password)
     {
         $query = "INSERT INTO users (name, firstname, email, password) VALUES (:name, :firstname, :email, :password)";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":name" => $user->getName(),
-                ":firstname" => $user->getFirstname(),
-                ":email" => $user->getEmail(),
-                ":password" => $user->getPassword()
+                ":name" => $name,
+                ":firstname" => $firstname,
+                ":email" => $email,
+                ":password" => $password
             ]
         );
     }
 
-    public function findByEmail(User $user)
+    public function findByEmail($email)
     {
         $query = "SELECT * FROM users WHERE email = :email LIMIT 1";
         $statement = $this->pdo->prepare($query);
-        $statement->execute([":email" => $user->getEmail()]);
+        $statement->execute([":email" => $email]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     public function findById(User $user)
