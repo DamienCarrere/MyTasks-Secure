@@ -25,6 +25,7 @@ switch ($controller) {
                 $authController->register();
                 break;
             case "logout":
+                $authController->logout();
                 break;
         }
         break;

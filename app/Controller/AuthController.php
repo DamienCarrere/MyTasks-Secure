@@ -93,4 +93,10 @@ class AuthController
         }
         include __DIR__ . "/../View/auth/login.php";
     }
+
+    public function logout()
+    {
+        session_destroy();
+        header("Location: index.php?controller=auth&action=login");
+    }
 }
