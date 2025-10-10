@@ -53,7 +53,7 @@ class AuthController
                     $hash = password_hash($password, PASSWORD_DEFAULT);
                     $userId = $this->userDao->create($name, $firstname, $email, $hash);
 
-                    $_SESSION["user_id"] = $userId;
+                    $_SESSION["id"] = $userId;
                     session_regenerate_id(true);
 
                     header("Location: index.php?controller=auth&action=login");
@@ -81,7 +81,7 @@ class AuthController
                 $verifyEmail = $this->userDao->findByEmail($email);
                 if ($verifyEmail && password_verify($password, $verifyEmail["password"])) {
 
-                    $_SESSION["user_id"] = $verifyEmail["id"];
+                    $_SESSION["id"] = $verifyEmail["id"];
                     session_regenerate_id(true);
 
                     header("Location: index.php?controller=task&action=index");
@@ -98,5 +98,6 @@ class AuthController
     {
         session_destroy();
         header("Location: index.php?controller=auth&action=login");
+        exit;
     }
 }
