@@ -25,6 +25,7 @@
         <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe"><br>
         <button type="submit">S'inscrire</button>
     </form>
+    <a href="index.php?controller=auth&action=login">Se connecter</a>
 
 </body>
 

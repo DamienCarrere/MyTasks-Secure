@@ -22,6 +22,7 @@
         <input type="password" name="password" placeholder="Mot de passe"><br>
         <button type="submit">Se connecter</button>
     </form>
+    <a href="index.php?controller=auth&action=register">S'inscrire</a>
 </body>
 
 </html>

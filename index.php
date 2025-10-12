@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . "/app/Controller/AuthController.php";
 require_once __DIR__ . "/app/Controller/ProfileController.php";
-// require_once __DIR__ . "/app/Controller/TaskController.php";
+require_once __DIR__ . "/app/Controller/TaskController.php";
 require_once __DIR__ . "/app/DAO/UserDAO.php";
 require_once __DIR__ . "/app/DAO/TaskDAO.php";
 
@@ -13,6 +13,7 @@ $pdo = Database::getConnection();
 $controller = $_GET["controller"] ?? "auth";
 $action = $_GET["action"] ?? "register";
 $userDao = new UserDAO($pdo);
+$taskDao = new TaskDao($pdo);
 
 switch ($controller) {
     case "auth":
@@ -44,15 +45,19 @@ switch ($controller) {
         }
         break;
     case "task":
-        $TaskDao = new TaskDAO($pdo);
+        $taskController = new taskController($taskDao);
         switch ($action) {
             case "index":
+                $taskController->index();
                 break;
             case "create":
+                $taskController->create();
                 break;
             case "edit":
+                $taskController->edit();
                 break;
             case "delete":
+                $taskController->delete();
                 break;
         }
         break;
