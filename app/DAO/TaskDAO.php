@@ -16,7 +16,7 @@ class TaskDAO
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                "user_id" => $user_id,
+                ":user_id" => $user_id,
                 ":title" => $title,
                 ":description" => $description,
                 ":due_date" => $due_date,
@@ -34,7 +34,7 @@ class TaskDAO
                 ":user_id" => $user_id
             ]
         );
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     public function findById($id)
@@ -46,7 +46,7 @@ class TaskDAO
                 ":id" => $id
             ]
         );
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     public function update($id, $title, $description, $due_date)
