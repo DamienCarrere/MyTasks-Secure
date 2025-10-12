@@ -11,11 +11,12 @@
     <h3>PROFIL</h3>
 
     <label>Nom :</label>
-    <p><?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?></p>
+    <p><?= htmlspecialchars($name, ENT_QUOTES, "UTF-8") ?></p>
     <label>Prénom :</label>
-    <p><?= htmlspecialchars($firstname, ENT_QUOTES, 'UTF-8') ?></p>
+    <p><?= htmlspecialchars($firstname, ENT_QUOTES, "UTF-8") ?></p>
     <label>Email :</label>
-    <p><?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?></p>
+    <p><?= htmlspecialchars($email, ENT_QUOTES, "UTF-8") ?></p>
+    <br>
 
 </body>
 

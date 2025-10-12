@@ -42,13 +42,14 @@ class UserDAO
 
     public function updateProfile(User $user)
     {
-        $query = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        $query = "UPDATE users SET name = :name, firstname = :firstname, email = :email WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
                 ":name" => $user->getName(),
-                ":id" => $user->getId(),
-                ":email" => $user->getEmail()
+                ":firstname" => $user->getFirstname(),
+                ":email" => $user->getEmail(),
+                ":id" => $user->getId()
             ]
         );
     }
