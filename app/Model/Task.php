@@ -10,7 +10,7 @@ class Task
     protected DateTime $due_date;
     protected bool $done;
 
-    public function __construct(?int $id, int $user_id, string $title, string $description, \DateTime $due_date, bool $done)
+    public function __construct(?int $id, int $user_id, string $title, string $description, DateTime $due_date, bool $done)
     {
         $this->id = $id;
         $this->user_id = $user_id;
