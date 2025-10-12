@@ -62,7 +62,7 @@
     <?php endif; ?>
     <br>
 
-    <a class="logout" href="index.php?controller=auth&action=logout">🚪 Se déconnecter</a>
+    <a class="logout" href="index.php?controller=auth&action=logout">Se déconnecter</a>
 </body>
 
 </html>
