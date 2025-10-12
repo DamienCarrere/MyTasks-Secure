@@ -109,12 +109,16 @@ class TaskController
     public function toggleDone()
     {
         $this->isAuth();
-        $id = $_GET["id"] ?? null;
+        $id = $_POST["id"] ?? null;
         $done = $_POST["done"] ?? null;
 
         if ($id !== null && $done !== null) {
-            $this->taskDao->toggleDone($id, $done);
+            $id = (int) $id;
+            $done = (int) $done;
         }
+        $done = $done === 1 ? 0 : 1;
+        $this->taskDao->toggleDone($id, $done);
+
         header("Location: index.php?controller=task&action=index");
         exit;
     }

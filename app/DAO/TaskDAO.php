@@ -34,7 +34,7 @@ class TaskDAO
                 ":user_id" => $user_id
             ]
         );
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function findById($id)

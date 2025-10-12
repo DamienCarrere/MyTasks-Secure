@@ -59,6 +59,9 @@ switch ($controller) {
             case "delete":
                 $taskController->delete();
                 break;
+            case "toggleDone":
+                $taskController->toggleDone();
+                break;
         }
         break;
 }
