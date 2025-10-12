@@ -13,7 +13,7 @@
     <h4>Tâche: <?= htmlspecialchars($task["title"]) ?></h4>
     <form method="POST">
         <label>Titre</label>
-        <input type="text" name="title" value="<?= htmlspecialchars($task["title"]) ?>>
+        <input type="text" name="title" value="<?= htmlspecialchars($task["title"]) ?>">
         <label>Description</label>
         <textarea type=" text" name="description"><?= htmlspecialchars($task["description"]) ?></textarea>
         <label>Date d'échéance</label>
