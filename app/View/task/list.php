@@ -24,7 +24,7 @@ $header = "List";
                     <td><?= htmlspecialchars($task["description"]) ?></td>
                     <td><?= htmlspecialchars($task["due_date"]) ?></td>
                     <td>
-                        <?= $task["done"] ? "✅" : "⏳" ?>
+                        <?= $task["done"] ? "✔️" : "❌" ?>
                         <form method="POST" action="index.php?controller=task&action=toggleDone" style="display:inline;">
                             <input type="hidden" name="id" value="<?= $task['id'] ?>">
                             <input type="hidden" name="done" value="<?= $task['done'] ? 1 : 0 ?>">
