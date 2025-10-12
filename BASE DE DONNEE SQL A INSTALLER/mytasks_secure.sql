@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 12, 2025 at 06:53 PM
+-- Generation Time: Oct 12, 2025 at 07:24 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -36,6 +36,15 @@ CREATE TABLE `tasks` (
   `done` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `user_id`, `title`, `description`, `due_date`, `done`) VALUES
+(12, 6, 'Tâche 1', 'Test tâche 1', '2025-10-31 02:27:00', 0),
+(13, 6, 'Tâche 2', 'Test tâche 2', '2028-10-12 01:22:00', 0),
+(14, 6, 'Tâche 3', 'Test tâche 3', '2025-10-29 02:27:00', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +58,13 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `firstname`, `email`, `password`) VALUES
+(6, 'Root', 'admin', 'admin@root.com', '$2y$10$9heasclK0BzvBvkkvvWJa.c/dbydRZz3ABQi75LKIoZXX4mgrYvbG');
 
 --
 -- Indexes for dumped tables
@@ -75,13 +91,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
