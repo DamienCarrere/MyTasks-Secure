@@ -40,37 +40,38 @@ class UserDAO
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateProfile(User $user)
+    public function updateProfile($id, $name, $firstname, $email)
     {
-        $query = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+        $query = "UPDATE users SET name = :name, firstname = :firstname, email = :email WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":name" => $user->getName(),
-                ":id" => $user->getId(),
-                ":email" => $user->getEmail()
+                ":id" => $id,
+                ":name" => $name,
+                ":firstname" => $firstname,
+                ":email" => $email
             ]
         );
     }
-    public function updatePassword(User $user)
+    public function updatePassword($id, $password)
     {
         $query = "UPDATE users SET password = :password WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":password" => $user->getPassword(),
-                ":id" => $user->getId()
+                ":id" => $id,
+                ":password" => $password
             ]
         );
     }
 
-    public function delete(User $user)
+    public function delete($id)
     {
         $query = "DELETE FROM users WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":id" => $user->getId()
+                ":id" => $id
             ]
         );
     }

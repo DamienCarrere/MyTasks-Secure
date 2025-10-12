@@ -10,75 +10,78 @@ class TaskDAO
         $this->pdo = $pdo;
     }
 
-    public function create(Task $task)
+    public function create($user_id, $title, $description, $due_date, $done)
     {
-        $query = "INSERT INTO users (title, description, due_date, done) VALUES (:title, :description, :due_date, :done)";
+        $query = "INSERT INTO tasks (user_id, title, description, due_date, done) VALUES (:user_id, :title, :description, :due_date, :done)";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":title" => $task->getTitle(),
-                ":description" => $task->getDescription(),
-                ":due_date" => $task->getDueDate(),
-                ":done" => $task->getDone()
+                ":user_id" => $user_id,
+                ":title" => $title,
+                ":description" => $description,
+                ":due_date" => $due_date,
+                ":done" => $done ? 1 : 0
             ]
         );
     }
 
-    public function findAllByUser(Task $task)
+    public function findAllByUser($user_id)
     {
         $query = "SELECT * FROM tasks WHERE user_id = :user_id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":user_id" => $task->getUserId()
+                ":user_id" => $user_id
             ]
         );
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function findById(Task $task)
+    public function findById($id)
     {
         $query = "SELECT * FROM tasks WHERE id = :id LIMIT 1";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":id" => $task->getId()
+                ":id" => $id
             ]
         );
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update(Task $task)
+    public function update($id, $title, $description, $due_date)
     {
         $query = "UPDATE tasks SET title = :title, description = :description, due_date = :due_date WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":title" => $task->getTitle(),
-                ":description" => $task->getDescription(),
-                ":due_date" => $task->getDueDate(),
-                ":id" => $task->getDone()
+                ":id" => $id,
+                ":title" => $title,
+                ":description" => $description,
+                ":due_date" => $due_date
             ]
         );
     }
 
-    public function delete(Task $task)
+    public function delete($id)
     {
         $query = "DELETE FROM tasks WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":id" => $task->getId()
+                ":id" => $id
             ]
         );
     }
 
-    public function toggleDone(Task $task)
+    public function toggleDone($id, $done)
     {
         $query = "UPDATE tasks SET done = :done WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":done" => $task->getDone(),
-                ":id" => $task->getId()
+                ":id" => $id,
+                ":done" => $done ? 1 : 0
             ]
         );
     }
