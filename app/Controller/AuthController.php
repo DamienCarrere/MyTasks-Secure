@@ -81,7 +81,7 @@ class AuthController
                     $_SESSION["id"] = $user["id"];
                     session_regenerate_id(true);
 
-                    header("Location: index.php?controller=profile&action=index");
+                    header("Location: index.php?controller=task&action=index");
                     exit;
                 } else {
                     $errors[] = "Email ou mot de passe incorrect";

@@ -11,7 +11,7 @@ require __DIR__ . "/config/Database.php";
 
 $pdo = Database::getConnection();
 $controller = $_GET["controller"] ?? "auth";
-$action = $_GET["action"] ?? "register";
+$action = $_GET["action"] ?? "login";
 $userDao = new UserDAO($pdo);
 $taskDao = new TaskDao($pdo);
 
