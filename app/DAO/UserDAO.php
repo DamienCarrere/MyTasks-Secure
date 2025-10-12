@@ -65,13 +65,13 @@ class UserDAO
         );
     }
 
-    public function delete(User $user)
+    public function delete($id)
     {
         $query = "DELETE FROM users WHERE id = :id";
         $statement = $this->pdo->prepare($query);
         $statement->execute(
             [
-                ":id" => $user->getId()
+                ":id" => $id
             ]
         );
     }
