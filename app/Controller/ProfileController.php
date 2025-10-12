@@ -36,7 +36,7 @@ class ProfileController
 
         $user = $this->userDao->findById($_SESSION["id"]);
 
-        $errors = [];
+        $errorsP = [];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = $_POST["name"] ?? "";
@@ -44,22 +44,30 @@ class ProfileController
             $email = trim($_POST["email"]) ?? "";
 
             if (empty($name) || empty($firstname) || empty($email)) {
-                $errors[] = "Tous les champs doivent être remplis";
+                $errorsP[] = "Tous les champs doivent être remplis";
             } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors[] = "Email invalide";
+                $errorsP[] = "Email invalide";
             } else {
 
                 $findEmail = $this->userDao->findByEmail($email);
                 if ($findEmail && $findEmail["id"] != $_SESSION["id"]) {
-                    $errors[] = "Email déjà utlisé";
+                    $errorsP[] = "Email déjà utlisé";
                 }
             }
 
-            if (empty($errors)) {
+            if (empty($errorsP)) {
                 $this->userDao->updateProfile($_SESSION["id"], $name, $firstname, $email);
                 $user = $this->userDao->findById($_SESSION["id"]);
+                $_SESSION["profileUpdated"] = "Profil mis à jour";
+                header("Location: index.php?controller=profile&action=index");
+                exit;
             }
         }
+        $user = $this->userDao->findById($_SESSION["id"]);
+        $name = $user["name"];
+        $firstname = $user["firstname"];
+        $email = $user["email"];
+        include __DIR__ . "/../View/profile/profile.php";
     }
     public function changePassword()
     {
@@ -68,10 +76,15 @@ class ProfileController
         $errors = [];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $currentPassword = $_POST["currentPassWord"];
+            $currentPassword = $_POST["currentPassword"] ?? "";
             $newPassword = $_POST["newPassword"] ?? "";
             $password_confirmation = $_POST["password_confirmation"] ?? "";
-            $user = $this->userDao->findById($_SESSION["id"]);
+
+            $user_id = $this->userDao->findById($_SESSION["id"]);
+
+            if (!password_verify($currentPassword, $user_id["password"])) {
+                $errors[] = "Le mot de passe actuel est incorect";
+            }
 
             // verif mdp
             $rules = [
@@ -86,22 +99,26 @@ class ProfileController
                 if (!$rule($newPassword)) {
                     $errors[] = $errormsg;
                 }
-                if ($newPassword !== $password_confirmation) {
-                    $errors[] = "Les mots de passe ne correspondent pas";
-                }
-                if (!password_verify($currentPassword, $user["password"])) {
-                    $errors[] = "Le mot de passe actuel est incorect";
-                }
+            }
 
-                if (empty($errors)) {
+            if ($newPassword !== $password_confirmation) {
+                $errors[] = "Les mots de passe ne correspondent pas";
+            }
 
-                    $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-                    $this->userDao->updatePassword($_SESSION["id"], $hash);
+            if (empty($errors)) {
 
-                    header("Location: index.php?controller=profile&action=index");
-                    exit;
-                }
+                $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+                $this->userDao->updatePassword($_SESSION["id"], $hash);
+                $errors = [];
+                $_SESSION["passwordUpdated"] = "Mot de passe mis à jour";
+                header("Location: index.php?controller=profile&action=index");
+                exit;
             }
         }
+        $user = $this->userDao->findById($_SESSION["id"]);
+        $name = $user["name"];
+        $firstname = $user["firstname"];
+        $email = $user["email"];
+        include __DIR__ . "/../View/profile/profile.php";
     }
 }

@@ -35,10 +35,10 @@ switch ($controller) {
             case "index":
                 $profileController->index();
                 break;
-            case "updateProfile":
+            case "update":
                 $profileController->update();
                 break;
-            case "updatePassword":
+            case "changePassword":
                 $profileController->changePassword();
                 break;
         }
