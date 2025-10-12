@@ -35,6 +35,12 @@ switch ($controller) {
             case "index":
                 $profileController->index();
                 break;
+            case "updateProfile":
+                $profileController->update();
+                break;
+            case "updatePassword":
+                $profileController->changePassword();
+                break;
         }
         break;
     case "task":
