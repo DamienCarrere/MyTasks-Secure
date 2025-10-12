@@ -24,7 +24,7 @@
     </main>
 
     <footer class="bg-secondary d-flex justify-content-center align-items-center shadow">
-        <p class="m-0">Footer</p>
+        <p class="m-0">Copyright Bebou Valentin</p>
     </footer>
 </body>
 
